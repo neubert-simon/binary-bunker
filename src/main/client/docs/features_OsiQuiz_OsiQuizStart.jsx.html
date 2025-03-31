@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: features/OsiQuiz/OsiQuizStart.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: features/OsiQuiz/OsiQuizStart.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import StartMenu from "../../ui/StartMenu.js";
+import styled from "styled-components";
+import {useOsiQuiz} from "./OsiQuizContext.jsx";
+import SelectMenu from "../../ui/SelectMenu.jsx";
+import {useGSAPClickAnimation} from "../../hooks/useGSAPClickAnimation.js";
+import {useRef} from "react";
+import {useQuery} from "@tanstack/react-query";
+import Loading from "../../ui/Loading.jsx";
+import {useGSAP} from "@gsap/react";
+import gsap from "gsap";
+
+/**
+ * Styled container for the options section, which will hold the select menus.
+ * It uses Flexbox for layout and adjusts for different screen sizes.
+ */
+const Options = styled.div`
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    width: 100%;
+
+    @media (max-width: 576px) {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    @media (min-width: 577px) and (max-width: 768px) {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    @media (min-width: 769px) and (max-width: 992px) {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    @media (min-width: 993px) and (max-width: 1200px) {
+        
+    }
+
+    @media (min-width: 1200px) and (max-width: 1599px) {
+        
+    }
+`;
+
+/**
+ * The component that renders the start menu for the OSI Quiz.
+ * It allows users to select quiz settings like difficulty, layer, and question type.
+ *
+ * @returns {JSX.Element} The start menu with options to choose for the quiz.
+ */
+function OsiQuizStart() {
+    const {
+        dispatch,
+        difficulty,
+        layer,
+        questionType,
+        handleStartQuiz
+    } = useOsiQuiz();
+    const { animate } = useGSAPClickAnimation(); // Custom hook for GSAP click animation
+    const ref = useRef();
+    // Fetches the categories of the quiz to show them in the selection
+    const { data, error, isLoading } = useQuery({
+        queryKey: ["quiz-options"],
+        queryFn: async () => {
+            const resp = await fetch("http://localhost:8080/api/v1/categories");
+
+            if (!resp.ok) {
+                const errorData = await resp.json();
+                throw new Error(errorData.message || "Unknown error occurred");
+            }
+
+            const data = await resp.json();
+            return data;
+        },
+    });
+
+    const {
+        Difficulty,
+        OSILayer,
+        QuestionTypeMC
+    } = data || {}; // Destructs the retrieved categories, so we can select the options on the start screen
+
+    // Event handler to change the difficulty setting
+    function handleDifficultyChange(difficulty) {
+        dispatch({ type: "setDifficulty", payload: difficulty });
+    }
+
+    // Event handler to change the layer setting
+    function handleLayerChange(layer) {
+        dispatch({ type: "setLayer", payload: layer });
+    }
+
+    // Event handler to change the question type setting
+    function handleQuestionTypeChange(questionType) {
+        dispatch({ type: "setQuestionType", payload: questionType });
+    }
+
+    // Trigger the start quiz action with animation
+    function handleStartQuizClick() {
+        animate(
+            ref.current,
+            {
+                x: 100,
+                opacity: 0,
+                duration: .3,
+                ease: "power2.inOut",
+            },
+            () => {
+                handleStartQuiz();
+            }
+        );
+    }
+
+    // GSAP hook to animate the start menu on page load
+    useGSAP(() => {
+        gsap.to(ref.current, { x: 0, opacity: 1, duration: .3, ease: "power2.inOut", });
+    }, [isLoading]);
+
+    // Show loading spinner if data is still being fetched
+    if(isLoading) return &lt;Loading />
+
+    return &lt;StartMenu ref={ref}>
+        &lt;h2 className="startmenu-header">Welcome to the OSI Quiz, what do you want to learn?&lt;/h2>
+        &lt;Options>
+            &lt;SelectMenu
+                startLabel="Difficulty"
+                menuOptions={Difficulty}
+                onChangeCallback={handleDifficultyChange}
+            />
+            &lt;SelectMenu
+                startLabel="Layer"
+                menuOptions={OSILayer}
+                onChangeCallback={handleLayerChange}
+                zIndexShift={1}
+            />
+            &lt;SelectMenu
+                startLabel="Question Type"
+                menuOptions={QuestionTypeMC}
+                onChangeCallback={handleQuestionTypeChange}
+                zIndexShift={2}
+            />
+        &lt;/Options>
+        &lt;div className="startBtn" onClick={handleStartQuizClick}>Start&lt;/div>
+    &lt;/StartMenu>
+}
+
+export default OsiQuizStart;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-OsiQuizContext.html">OsiQuizContext</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AnimationContainer">AnimationContainer</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppLayout">AppLayout</a></li><li><a href="global.html#Background">Background</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#Choice">Choice</a></li><li><a href="global.html#Content">Content</a></li><li><a href="global.html#ContentBackground">ContentBackground</a></li><li><a href="global.html#ContentContainer">ContentContainer</a></li><li><a href="global.html#CreateIPBtn">CreateIPBtn</a></li><li><a href="global.html#DMTY">DMTY</a></li><li><a href="global.html#Darkmode">Darkmode</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Form">Form</a></li><li><a href="global.html#GlobalStyles">GlobalStyles</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#IPLanding">IPLanding</a></li><li><a href="global.html#IPLearnToolProvider">IPLearnToolProvider</a></li><li><a href="global.html#IPLearnToolQuiz">IPLearnToolQuiz</a></li><li><a href="global.html#IPLearnToolQuizContent">IPLearnToolQuizContent</a></li><li><a href="global.html#IPLearnToolQuizForm">IPLearnToolQuizForm</a></li><li><a href="global.html#IPLearnToolQuizStart">IPLearnToolQuizStart</a></li><li><a href="global.html#IPLearningTool">IPLearningTool</a></li><li><a href="global.html#IPSubnettingLinks">IPSubnettingLinks</a></li><li><a href="global.html#IPv4Calculator">IPv4Calculator</a></li><li><a href="global.html#IPv4CalculatorContent">IPv4CalculatorContent</a></li><li><a href="global.html#IPv4Links">IPv4Links</a></li><li><a href="global.html#IPv4Visualizer">IPv4Visualizer</a></li><li><a href="global.html#IPv4VisualizerContent">IPv4VisualizerContent</a></li><li><a href="global.html#IPv6Calculator">IPv6Calculator</a></li><li><a href="global.html#IPv6CalculatorContent">IPv6CalculatorContent</a></li><li><a href="global.html#IPv6Content">IPv6Content</a></li><li><a href="global.html#InputPrefix">InputPrefix</a></li><li><a href="global.html#InputText">InputText</a></li><li><a href="global.html#InputWrapper">InputWrapper</a></li><li><a href="global.html#IpLearnToolContext">IpLearnToolContext</a></li><li><a href="global.html#LearnToolChoice">LearnToolChoice</a></li><li><a href="global.html#Loading">Loading</a></li><li><a href="global.html#MoreDetailsBtn">MoreDetailsBtn</a></li><li><a href="global.html#MultipleChoice">MultipleChoice</a></li><li><a href="global.html#NavLink">NavLink</a></li><li><a href="global.html#Navigation">Navigation</a></li><li><a href="global.html#NavigationMenu">NavigationMenu</a></li><li><a href="global.html#NavigationToggle">NavigationToggle</a></li><li><a href="global.html#NoMultipleChoice">NoMultipleChoice</a></li><li><a href="global.html#OSIQuizLanding">OSIQuizLanding</a></li><li><a href="global.html#Options">Options</a></li><li><a href="global.html#OsiQuiz">OsiQuiz</a></li><li><a href="global.html#OsiQuizChoice">OsiQuizChoice</a></li><li><a href="global.html#OsiQuizContent">OsiQuizContent</a></li><li><a href="global.html#OsiQuizForm">OsiQuizForm</a></li><li><a href="global.html#OsiQuizMultipleChoice">OsiQuizMultipleChoice</a></li><li><a href="global.html#OsiQuizStart">OsiQuizStart</a></li><li><a href="global.html#Retry">Retry</a></li><li><a href="global.html#SelectMenu">SelectMenu</a></li><li><a href="global.html#StartMenu">StartMenu</a></li><li><a href="global.html#StyledAppLayout">StyledAppLayout</a></li><li><a href="global.html#StyledButton">StyledButton</a></li><li><a href="global.html#StyledDMTY">StyledDMTY</a></li><li><a href="global.html#StyledDarkMode">StyledDarkMode</a></li><li><a href="global.html#StyledIPLinks">StyledIPLinks</a></li><li><a href="global.html#StyledIPVisualizerContent">StyledIPVisualizerContent</a></li><li><a href="global.html#StyledLink">StyledLink</a></li><li><a href="global.html#StyledLoading">StyledLoading</a></li><li><a href="global.html#StyledMultipleChoices">StyledMultipleChoices</a></li><li><a href="global.html#StyledTitle">StyledTitle</a></li><li><a href="global.html#SubnetVisualizer">SubnetVisualizer</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#UserState">UserState</a></li><li><a href="global.html#ValuePair">ValuePair</a></li><li><a href="global.html#animateNavigation">animateNavigation</a></li><li><a href="global.html#formatBinary">formatBinary</a></li><li><a href="global.html#getIPLearntoolQuestion">getIPLearntoolQuestion</a></li><li><a href="global.html#getIPv4Calculation">getIPv4Calculation</a></li><li><a href="global.html#getIPv4Visualizer">getIPv4Visualizer</a></li><li><a href="global.html#getIPv6Calculation">getIPv6Calculation</a></li><li><a href="global.html#getOsiQuizQuestion">getOsiQuizQuestion</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#outlinevariations">outlinevariations</a></li><li><a href="global.html#queryClient">queryClient</a></li><li><a href="global.html#reducer">reducer</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#useDarkmode">useDarkmode</a></li><li><a href="global.html#useGSAPClickAnimation">useGSAPClickAnimation</a></li><li><a href="global.html#useHandleLinkClick">useHandleLinkClick</a></li><li><a href="global.html#useIPLearnTool">useIPLearnTool</a></li><li><a href="global.html#useIPv4Fetch">useIPv4Fetch</a></li><li><a href="global.html#usePagePagination">usePagePagination</a></li><li><a href="global.html#validateIPLearntoolQuestion">validateIPLearntoolQuestion</a></li><li><a href="global.html#variations">variations</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Feb 14 2025 16:35:06 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

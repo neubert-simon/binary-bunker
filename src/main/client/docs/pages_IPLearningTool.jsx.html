@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/IPLearningTool.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/IPLearningTool.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Background from "../ui/Background.js";
+import DMTY from "../ui/DMTY.jsx";
+import AnimationContainer from "../ui/AnimationContainer.jsx";
+import {IPLearnToolProvider } from "../features/IP/IPLearnTool/IPLearnToolContext.jsx";
+import IPLearnToolQuiz from "../features/IP/IPLearnTool/IPLearnToolQuiz.jsx";
+
+/**
+ * IPLearningTool page component for the Binary Bunker application.
+ * This page introduces the user to the IP Learning Tool, encouraging them to practice and improve their knowledge of IP addresses.
+ * The DMTY character offers a friendly invitation to start practicing, and the page includes a quiz powered by the IPLearnToolProvider.
+ * The IPLearnToolQuiz component contains the actual quiz interface for the user.
+ *
+ * @component
+ * @returns {JSX.Element} The IPLearningTool page with a practice quiz and a friendly greeting from DMTY.
+ */
+function IPLearningTool() {
+    return (
+        &lt;AnimationContainer>
+            &lt;Background>
+                &lt;DMTY speechBubbleText="Everyone needs some Practice, so let's try out the IP Learntool" />
+                &lt;IPLearnToolProvider>
+                    &lt;IPLearnToolQuiz />
+                &lt;/IPLearnToolProvider>
+            &lt;/Background>
+        &lt;/AnimationContainer>
+    );
+}
+
+export default IPLearningTool;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-OsiQuizContext.html">OsiQuizContext</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AnimationContainer">AnimationContainer</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppLayout">AppLayout</a></li><li><a href="global.html#Background">Background</a></li><li><a href="global.html#Button">Button</a></li><li><a href="global.html#Choice">Choice</a></li><li><a href="global.html#Content">Content</a></li><li><a href="global.html#ContentBackground">ContentBackground</a></li><li><a href="global.html#ContentContainer">ContentContainer</a></li><li><a href="global.html#CreateIPBtn">CreateIPBtn</a></li><li><a href="global.html#DMTY">DMTY</a></li><li><a href="global.html#Darkmode">Darkmode</a></li><li><a href="global.html#Error">Error</a></li><li><a href="global.html#Form">Form</a></li><li><a href="global.html#GlobalStyles">GlobalStyles</a></li><li><a href="global.html#Home">Home</a></li><li><a href="global.html#IPLanding">IPLanding</a></li><li><a href="global.html#IPLearnToolProvider">IPLearnToolProvider</a></li><li><a href="global.html#IPLearnToolQuiz">IPLearnToolQuiz</a></li><li><a href="global.html#IPLearnToolQuizContent">IPLearnToolQuizContent</a></li><li><a href="global.html#IPLearnToolQuizForm">IPLearnToolQuizForm</a></li><li><a href="global.html#IPLearnToolQuizStart">IPLearnToolQuizStart</a></li><li><a href="global.html#IPLearningTool">IPLearningTool</a></li><li><a href="global.html#IPSubnettingLinks">IPSubnettingLinks</a></li><li><a href="global.html#IPv4Calculator">IPv4Calculator</a></li><li><a href="global.html#IPv4CalculatorContent">IPv4CalculatorContent</a></li><li><a href="global.html#IPv4Links">IPv4Links</a></li><li><a href="global.html#IPv4Visualizer">IPv4Visualizer</a></li><li><a href="global.html#IPv4VisualizerContent">IPv4VisualizerContent</a></li><li><a href="global.html#IPv6Calculator">IPv6Calculator</a></li><li><a href="global.html#IPv6CalculatorContent">IPv6CalculatorContent</a></li><li><a href="global.html#IPv6Content">IPv6Content</a></li><li><a href="global.html#InputPrefix">InputPrefix</a></li><li><a href="global.html#InputText">InputText</a></li><li><a href="global.html#InputWrapper">InputWrapper</a></li><li><a href="global.html#IpLearnToolContext">IpLearnToolContext</a></li><li><a href="global.html#LearnToolChoice">LearnToolChoice</a></li><li><a href="global.html#Loading">Loading</a></li><li><a href="global.html#MoreDetailsBtn">MoreDetailsBtn</a></li><li><a href="global.html#MultipleChoice">MultipleChoice</a></li><li><a href="global.html#NavLink">NavLink</a></li><li><a href="global.html#Navigation">Navigation</a></li><li><a href="global.html#NavigationMenu">NavigationMenu</a></li><li><a href="global.html#NavigationToggle">NavigationToggle</a></li><li><a href="global.html#NoMultipleChoice">NoMultipleChoice</a></li><li><a href="global.html#OSIQuizLanding">OSIQuizLanding</a></li><li><a href="global.html#Options">Options</a></li><li><a href="global.html#OsiQuiz">OsiQuiz</a></li><li><a href="global.html#OsiQuizChoice">OsiQuizChoice</a></li><li><a href="global.html#OsiQuizContent">OsiQuizContent</a></li><li><a href="global.html#OsiQuizForm">OsiQuizForm</a></li><li><a href="global.html#OsiQuizMultipleChoice">OsiQuizMultipleChoice</a></li><li><a href="global.html#OsiQuizStart">OsiQuizStart</a></li><li><a href="global.html#Retry">Retry</a></li><li><a href="global.html#SelectMenu">SelectMenu</a></li><li><a href="global.html#StartMenu">StartMenu</a></li><li><a href="global.html#StyledAppLayout">StyledAppLayout</a></li><li><a href="global.html#StyledButton">StyledButton</a></li><li><a href="global.html#StyledDMTY">StyledDMTY</a></li><li><a href="global.html#StyledDarkMode">StyledDarkMode</a></li><li><a href="global.html#StyledIPLinks">StyledIPLinks</a></li><li><a href="global.html#StyledIPVisualizerContent">StyledIPVisualizerContent</a></li><li><a href="global.html#StyledLink">StyledLink</a></li><li><a href="global.html#StyledLoading">StyledLoading</a></li><li><a href="global.html#StyledMultipleChoices">StyledMultipleChoices</a></li><li><a href="global.html#StyledTitle">StyledTitle</a></li><li><a href="global.html#SubnetVisualizer">SubnetVisualizer</a></li><li><a href="global.html#Title">Title</a></li><li><a href="global.html#UserState">UserState</a></li><li><a href="global.html#ValuePair">ValuePair</a></li><li><a href="global.html#animateNavigation">animateNavigation</a></li><li><a href="global.html#formatBinary">formatBinary</a></li><li><a href="global.html#getIPLearntoolQuestion">getIPLearntoolQuestion</a></li><li><a href="global.html#getIPv4Calculation">getIPv4Calculation</a></li><li><a href="global.html#getIPv4Visualizer">getIPv4Visualizer</a></li><li><a href="global.html#getIPv6Calculation">getIPv6Calculation</a></li><li><a href="global.html#getOsiQuizQuestion">getOsiQuizQuestion</a></li><li><a href="global.html#initialState">initialState</a></li><li><a href="global.html#outlinevariations">outlinevariations</a></li><li><a href="global.html#queryClient">queryClient</a></li><li><a href="global.html#reducer">reducer</a></li><li><a href="global.html#store">store</a></li><li><a href="global.html#useDarkmode">useDarkmode</a></li><li><a href="global.html#useGSAPClickAnimation">useGSAPClickAnimation</a></li><li><a href="global.html#useHandleLinkClick">useHandleLinkClick</a></li><li><a href="global.html#useIPLearnTool">useIPLearnTool</a></li><li><a href="global.html#useIPv4Fetch">useIPv4Fetch</a></li><li><a href="global.html#usePagePagination">usePagePagination</a></li><li><a href="global.html#validateIPLearntoolQuestion">validateIPLearntoolQuestion</a></li><li><a href="global.html#variations">variations</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Fri Feb 14 2025 16:35:06 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

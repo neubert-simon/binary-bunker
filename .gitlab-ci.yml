@@ -1,0 +1,47 @@
+include:
+  - template: Jobs/SAST.gitlab-ci.yml
+
+cache:
+  paths:
+    - .m2/repository
+
+stages:
+  - build
+  - test
+  - package
+
+build-binarybunker:
+  stage: build
+  image: maven:3.9-eclipse-temurin-21
+  script:
+    - "echo 'Starting Build Stage'"
+    - "mvn clean compile"
+    - "mvn javadoc:javadoc"
+  artifacts:
+    paths:
+      - target/site/apidocs
+
+test-binarybunker:
+  stage: test
+  image: maven:3.9-eclipse-temurin-21
+  script:
+    - "echo 'Starting Test Stage'"
+    - "mvn test"
+  artifacts:
+    reports:
+      junit:
+        - target/surefire-reports/TEST-*.xml
+        - target/failsafe-reports/TEST-*.xml
+
+package-binarybunker:
+  stage: package
+  image: maven:3.9-eclipse-temurin-21
+  script:
+    - "echo 'Starting Packaging Stage'"
+    - "mvn package"
+  only:
+    refs:
+      - main
+  artifacts:
+    paths:
+      - target/*.jar
