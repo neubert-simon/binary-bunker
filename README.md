@@ -1,6 +1,12 @@
 # Binary Bunker
 
-
+## My contribution
+I wrote the following packages and all corresponding tests and documentation for this project:
+- ip
+- questions
+- utility
+- webInterface
+The frontend and database code was written by other team members.
 
 ## Requirements
 - npm (Node package manager) must be installed.
